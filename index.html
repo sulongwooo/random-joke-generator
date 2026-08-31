@@ -8,16 +8,22 @@
 </head>
 <body>
     <div class="container">
-        <div class="joke-card">
-            <h1>😂 Random Joke Generator</h1>
-            <div class="joke-display" id="jokeDisplay">
-                <p>Click the button below to get a random joke!</p>
-            </div>
-            <button class="btn" id="getJokeBtn">Get a Joke</button>
-            <button class="btn btn-secondary" id="shareBtn">Share Joke</button>
+        <!-- Language Switcher -->
+        <div class="language-switcher">
+            <button class="lang-btn" id="languageBtn">中文</button>
         </div>
-        <div class="loading" id="loading">Loading...</div>
+
+        <div class="joke-card">
+            <h1 data-i18n="title">😂 Random Joke Generator</h1>
+            <div class="joke-display" id="jokeDisplay">
+                <p data-i18n="placeholder">Click the button below to get a random joke!</p>
+            </div>
+            <button class="btn" id="getJokeBtn" data-i18n="getJokeBtn">Get a Joke</button>
+            <button class="btn btn-secondary" id="shareBtn" data-i18n="shareBtn">Share Joke</button>
+        </div>
+        <div class="loading" id="loading" data-i18n="loading">Loading...</div>
     </div>
+    <script src="i18n.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
