@@ -2,6 +2,7 @@ const jokeDisplay = document.getElementById('jokeDisplay');
 const getJokeBtn = document.getElementById('getJokeBtn');
 const shareBtn = document.getElementById('shareBtn');
 const loading = document.getElementById('loading');
+const languageBtn = document.getElementById('languageBtn');
 
 let currentJoke = '';
 
@@ -23,7 +24,7 @@ async function getRandomJoke() {
         
         // Parse the joke from the API response
         if (data.error) {
-            currentJoke = "No joke available. Try again!";
+            currentJoke = t('noJoke');
         } else {
             currentJoke = data.joke || data.setup + ' ' + data.punchline;
         }
@@ -31,7 +32,7 @@ async function getRandomJoke() {
         displayJoke();
     } catch (error) {
         console.error('Error fetching joke:', error);
-        currentJoke = "Oops! Failed to fetch a joke. Please check your internet connection and try again.";
+        currentJoke = t('error');
         displayJoke();
     } finally {
         showLoading(false);
@@ -55,8 +56,8 @@ function showLoading(show) {
 
 // Share the joke via clipboard
 function shareJoke() {
-    if (!currentJoke || currentJoke.includes('Try again')) {
-        alert('Get a joke first!');
+    if (!currentJoke || currentJoke.includes(t('noJoke'))) {
+        alert(t('getJokeFirst'));
         return;
     }
     
@@ -87,7 +88,7 @@ function fallbackCopy() {
         document.execCommand('copy');
         showShareFeedback();
     } catch (err) {
-        alert('Failed to copy. Please try again.');
+        alert(t('failedCopy'));
     }
     
     document.body.removeChild(textArea);
@@ -96,15 +97,20 @@ function fallbackCopy() {
 // Show share feedback
 function showShareFeedback() {
     const originalText = shareBtn.textContent;
-    shareBtn.textContent = '✅ Copied!';
+    shareBtn.textContent = t('copied');
     setTimeout(() => {
-        shareBtn.textContent = originalText;
+        shareBtn.textContent = t('shareBtn');
     }, 2000);
 }
 
 // Event listeners
 getJokeBtn.addEventListener('click', getRandomJoke);
 shareBtn.addEventListener('click', shareJoke);
+
+// Language switcher
+languageBtn.addEventListener('click', () => {
+    toggleLanguage();
+});
 
 // Load a joke on page load
 window.addEventListener('load', getRandomJoke);
