@@ -3,46 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Joke Generator</title>
+    <title>RANDOM JOKE TERMINAL</title>
+
+    <!-- Dot-matrix retro fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Silkscreen:wght@400;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container cyber-shell">
-        <div class="terminal-bar">
-            <span class="terminal-dot red"></span>
-            <span class="terminal-dot yellow"></span>
-            <span class="terminal-dot green"></span>
+
+    <!-- Background dot-matrix portrait canvas -->
+    <canvas id="dot-canvas"></canvas>
+    <div class="crt-vignette"></div>
+
+    <!-- Top terminal header -->
+    <header class="topbar">
+        <div class="topbar-left">
+            <span class="logo-dot"></span>
+            <span class="logo-text">HUMOR_NET</span>
+            <span class="char-tag" id="char-tag">CURRENT: STANDBY.EXE</span>
         </div>
 
-        <div class="language-switcher">
-            <button class="lang-btn" id="languageBtn">中文</button>
-        </div>
+        <div class="topbar-right">
+            <button class="sfx-btn" id="btn-audio" title="Toggle 8-bit sound">
+                <span class="sfx-indicator" id="audio-indicator"></span>
+                <span id="audio-label" data-i18n="sfxOn">SFX: ON</span>
+            </button>
 
-        <div class="joke-card">
-            <div class="panel-header">
-                <span class="panel-tag">System</span>
-                <span class="panel-tag alt">Joke Core</span>
+            <div class="lang-switch">
+                <button id="lang-zh" type="button">中文</button>
+                <button id="lang-en" type="button">EN</button>
             </div>
+        </div>
+    </header>
 
-            <h1 data-i18n="title">> RANDOM JOKE GENERATOR</h1>
+    <!-- Core interaction stage -->
+    <main class="stage">
+        <div class="hero">
+            <div class="protocol" data-i18n="protocol">[ PROTOCOL // JOKEAPI.V2 ]</div>
+            <h1 id="hero-title" data-i18n="heroTitle">RANDOM JOKE TERMINAL</h1>
+            <p id="hero-subtitle" data-i18n="heroSubtitle">DECENTRALIZED PUNCHLINES // LOW LATENCY LAUGHTER</p>
+        </div>
 
-            <div class="terminal-window">
-                <div class="terminal-header">
-                    <span>Running</span>
-                    <span class="status">Online</span>
+        <!-- Joke terminal box -->
+        <section class="terminal">
+            <div class="terminal-status">
+                <div class="status-left">
+                    <span class="status-dot"></span>
+                    <span id="terminal-badge" data-i18n="statusLoading">PACKET // SYNCING...</span>
                 </div>
-                <div class="joke-display" id="jokeDisplay">
-                    <p data-i18n="placeholder">> Click the button below to get a random joke!</p>
+                <span class="joke-id" id="joke-id">#0x--_STANDBY</span>
+            </div>
+
+            <div class="joke-area">
+                <div class="joke-line" id="joke-setup">
+                    <span id="setup-text"></span><span class="cursor-blink" id="cursor-setup"></span>
+                </div>
+                <div class="joke-line joke-line--punch" id="joke-punchline" hidden>
+                    <span class="prompt-sign">&gt;</span>
+                    <span class="punch-body">
+                        <span id="punchline-text"></span><span class="cursor-blink" id="cursor-punch"></span>
+                    </span>
                 </div>
             </div>
 
-            <div class="action-stack">
-                <button class="btn" id="getJokeBtn" data-i18n="getJokeBtn">Execute Joke</button>
-                <button class="btn btn-secondary" id="shareBtn" data-i18n="shareBtn">Share Payload</button>
+            <div class="terminal-foot">
+                <span id="portrait-hint" data-i18n="portraitStandby">BG DOT-MATRIX: STANDBY</span>
+                <span class="space-hint" data-i18n="spaceHint">[SPACE] NEXT</span>
             </div>
-        </div>
+        </section>
 
-        <div class="loading" id="loading" data-i18n="loading">> Initializing...</div>
+        <!-- Action controls -->
+        <div class="controls">
+            <button class="btn btn-primary" id="btn-generate" type="button">
+                <span class="btn-dot"></span>
+                <span id="btn-gen-text" data-i18n="btnGen">GENERATE JOKE</span>
+            </button>
+            <button class="btn btn-ghost" id="btn-copy" type="button">
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span id="btn-copy-text" data-i18n="btnCopy">COPY JOKE</span>
+            </button>
+        </div>
+    </main>
+
+    <!-- Bottom status bar -->
+    <footer class="statusbar">
+        <span data-i18n="footerBrand">RANDOM_JOKE_TERMINAL // 1-BIT RETRO V3.2</span>
+        <span id="status-clock">READY</span>
+    </footer>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+        <span id="toast-text" data-i18n="copied">COPIED TO CLIPBOARD</span>
     </div>
 
     <script src="i18n.js"></script>
