@@ -7,22 +7,44 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <!-- Language Switcher -->
+    <div class="container cyber-shell">
+        <div class="terminal-bar">
+            <span class="terminal-dot red"></span>
+            <span class="terminal-dot yellow"></span>
+            <span class="terminal-dot green"></span>
+        </div>
+
         <div class="language-switcher">
             <button class="lang-btn" id="languageBtn">中文</button>
         </div>
 
         <div class="joke-card">
-            <h1 data-i18n="title">> RANDOM JOKE GENERATOR</h1>
-            <div class="joke-display" id="jokeDisplay">
-                <p data-i18n="placeholder">> Click the button below to get a random joke!</p>
+            <div class="panel-header">
+                <span class="panel-tag">System</span>
+                <span class="panel-tag alt">Joke Core</span>
             </div>
-            <button class="btn" id="getJokeBtn" data-i18n="getJokeBtn">Get Joke</button>
-            <button class="btn btn-secondary" id="shareBtn" data-i18n="shareBtn">Share Joke</button>
+
+            <h1 data-i18n="title">> RANDOM JOKE GENERATOR</h1>
+
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <span>Running</span>
+                    <span class="status">Online</span>
+                </div>
+                <div class="joke-display" id="jokeDisplay">
+                    <p data-i18n="placeholder">> Click the button below to get a random joke!</p>
+                </div>
+            </div>
+
+            <div class="action-stack">
+                <button class="btn" id="getJokeBtn" data-i18n="getJokeBtn">Execute Joke</button>
+                <button class="btn btn-secondary" id="shareBtn" data-i18n="shareBtn">Share Payload</button>
+            </div>
         </div>
-        <div class="loading" id="loading" data-i18n="loading">> Loading...</div>
+
+        <div class="loading" id="loading" data-i18n="loading">> Initializing...</div>
     </div>
+
     <script src="i18n.js"></script>
     <script src="script.js"></script>
 </body>
